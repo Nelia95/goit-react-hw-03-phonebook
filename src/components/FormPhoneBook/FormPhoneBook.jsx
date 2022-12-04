@@ -1,8 +1,12 @@
 import { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Style from './FormPhoneBook.module.css';
+import PropTypes from 'prop-types';
 
 class FormPhoneBook extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
   state = {
     name: '',
     number: '',
