@@ -18,8 +18,14 @@ class App extends Component {
   formContactChange = data => {
     if (this.state.contacts.find(({ name }) => name === data.name)) {
       alert(`${data.name} is already in contacts.`);
-      return;
+      return false;
+    } else if (
+      this.state.contacts.find(({ number }) => number === data.number)
+    ) {
+      alert(`${data.number} is already in contacts.`);
+      return false;
     }
+
     const newContact = {
       id: uuidv4(),
       name: data.name,
@@ -28,6 +34,7 @@ class App extends Component {
     this.setState(({ contacts }) => ({
       contacts: [newContact, ...contacts],
     }));
+    return true;
   };
 
   changeFilter = e => {
@@ -55,7 +62,7 @@ class App extends Component {
     return (
       <div className="App">
         <Section title="PhoneBook">
-          <FormPhoneBook formContactChange={this.formContactChange} />
+          <FormPhoneBook onSubmit={this.formContactChange} />
         </Section>
         <Section title="Contacts">
           <Filter value={filter} onChange={this.changeFilter} />

@@ -22,13 +22,16 @@ class FormPhoneBook extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    this.props.formContactChange(this.state);
-    this.reset();
+    if (this.props.onSubmit(this.state)) {
+      this.setState({ name: '', number: '' });
+    }
+    // this.props.formContactChange(this.state);
+    // this.reset();
   };
 
-  reset = () => {
-    this.setState({ name: '', number: '' });
-  };
+  // reset = () => {
+  //   this.setState({ name: '', number: '' });
+  // };
 
   render() {
     const { name, number } = this.state;
