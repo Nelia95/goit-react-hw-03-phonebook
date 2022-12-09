@@ -15,6 +15,17 @@ class App extends Component {
     ],
     filter: '',
   };
+  componentDidMount() {
+    const saveContact = localStorage.getItem('contacts');
+    if (saveContact) {
+      this.setState({ contacts: JSON.parse(saveContact) });
+    }
+  }
+  componentDidUpdate(_, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
   formContactChange = data => {
     if (this.state.contacts.find(({ name }) => name === data.name)) {
       alert(`${data.name} is already in contacts.`);
